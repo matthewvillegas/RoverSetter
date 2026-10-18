@@ -2,6 +2,8 @@
 
 **Independent mechanical engineering project | Mobile monument handling · CAD · Longitudinal stability**
 
+[![RoverSetter Python Tests](https://github.com/matthewvillegas/RoverSetter/actions/workflows/python-tests.yml/badge.svg)](https://github.com/matthewvillegas/RoverSetter/actions/workflows/python-tests.yml)
+
 RoverSetter began with a problem I encountered while installing cemetery monuments: a difficult installation took approximately **three to four hours**, and a stone was damaged during handling. I began developing a compact, maneuverable mobile system to improve transport and positioning. The original design ambition was to handle monuments weighing up to **2,000 lb**; that capacity **was never demonstrated or certified**.
 
 ![RoverSetter maintained CAD design](images/roversetter-full-cad.png)
@@ -82,7 +84,7 @@ python -m unittest discover -s analysis/tests -v
 python analysis/src/roversetter_stability.py
 ```
 
-The model script generates a CSV of **illustrative scenarios**; it does not generate experimental results.
+The model script generates a CSV of **illustrative scenarios**; it does not generate experimental results. GitHub Actions runs these two commands on pushes and pull requests to `main`. A passing workflow confirms computational checks, not physical validation.
 
 ## Repository contents
 
@@ -93,8 +95,9 @@ RoverSetter/
 ├── docs/             Case study, engineering PDFs, evidence limits
 ├── images/           CAD views and explanatory statics diagrams
 ├── analysis/         Numerical model, tests, hypothetical CSV
-├── website/          Suggested link text for my personal portfolio
-└── .github/workflows  Automatic Python test checks
+├── .github/workflows/python-tests.yml   Python tests and scenario reproduction
+├── FILE_MANIFEST_SHA256.txt              Snapshot checksums
+└── PUBLISH.md                            Repository maintenance notes
 ```
 
 The detailed CAD/STEP source files and full preservation archive are maintained **separately**, not published here as verified construction or load-rating specifications. Current CAD images are updated exports of existing models according to my design-file history; file export dates do not independently establish first creation dates.

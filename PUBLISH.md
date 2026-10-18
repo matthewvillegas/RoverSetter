@@ -1,36 +1,33 @@
-# How to publish RoverSetter as its own GitHub repository
+# RoverSetter — Public repository maintenance
 
-**Publication is not yet complete.** Create the repository on your GitHub account before using the URL below.
+**Published:** https://github.com/matthewvillegas/RoverSetter
 
-## Fastest approach: browser + GitHub Desktop
+This repository is a curated public engineering case study. It is not a fabrication package or a record of independently certified lifting capacity.
 
-1. Download the ready-to-publish ZIP and extract the `RoverSetter` folder.
-2. On GitHub, choose **New repository** (or visit `https://github.com/new`). Owner: `matthewvillegas`, repository name: `RoverSetter`.
-3. Use the description: **Independent mechanical engineering project investigating mobile monument handling, robotic positioning, and longitudinal stability through physical prototyping, CAD, and mathematical modeling.**
-4. Select **Public** only after checking the exact files listed for publication. Keep **Initialize this repository with a README** unchecked (the folder already has one).
-5. Open GitHub Desktop; choose **File → Add local repository** and select the extracted folder. If prompted, choose **Create a repository here**. Make the initial commit and publish/connect it to the GitHub repository you created.
-6. Confirm that `https://github.com/matthewvillegas/RoverSetter` shows the CAD image and README.
+## Public-release checks
 
-## Git command line alternative
+1. Confirm the README images and links resolve under the repository's `main` branch.
+2. Review `docs/` and `HISTORY.md` for accurate distinction between designer recollections, CAD documentation, and hypothetical calculations.
+3. Run the model locally:
 
-Create the empty repository via GitHub first. Inside the extracted `RoverSetter` folder:
+   ```bash
+   python -m unittest discover -s analysis/tests -v
+   python analysis/src/roversetter_stability.py
+   ```
 
-```bash
-git init -b main
-git add .
-git commit -m "Initial RoverSetter engineering case study"
-git remote add origin https://github.com/matthewvillegas/RoverSetter.git
-git push -u origin main
-```
+4. Review the [Python test workflow](.github/workflows/python-tests.yml) in GitHub Actions. A successful run means the software tests and scenario reproduction executed; it does **not** physically validate the machine.
+5. Keep the complete original CAD/STEP file backup separate from the curated public repository, with independent backups in at least two places.
+6. Refresh `FILE_MANIFEST_SHA256.txt` after content changes when you want the snapshot checksum list to cover the new revision. The manifest intentionally excludes itself. Checksums prove byte identity, not the date a design was first created.
 
-If `git init -b main` is unsupported, use `git init` then `git branch -M main` before committing. Authentication is handled by your local Git client/GitHub sign-in.
+## Website linking
 
-## Before making public
+Link to this repository from your personal project portfolio. A separate `website/` directory is **not** included in the public GitHub repository.
 
-- Review first-person statements for historical accuracy; edit those you don't personally endorse.
-- Ensure no private customer, cemetery, or business information is present.
-- Verify the README CAD image, reports, and graph appear on GitHub.
-- Keep the *separate private originals backup* in at least two locations. Its timestamps and SHA-256 checksums preserve current bytes, not historical creation dates.
-- Do not upload the deleted old folder's imagined contents, present theoretical results as measured trials, or claim a verified lifting rating.
+## Evidence boundaries
 
-You can link the public repo from your existing portfolio website. No modification to your website is required to create this repository.
+- The three physical builds and approximately 70 lb test are the designer's historical account.
+- Current CAD exports document the design, not independently authenticated as-built dimensions.
+- The statics results are hypothetical model predictions, not experimentally measured reactions.
+- Motor-startup pitching, original operating limits, and 2,000 lb lifting performance remain unverified.
+
+Do not backdate files or present unperformed validation as completed work.
