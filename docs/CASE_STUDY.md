@@ -12,7 +12,13 @@ A cemetery monument installation through my business took roughly three to four 
 
 ## Prototype development
 
-I built an initial mechanical concept, revised its layout in a second iteration, and integrated motorized chassis movement with forward load positioning in Prototype 3. The first two versions helped me work through the mechanism, but I do not have a complete record of their individual component changes. My clearest retained test account is from the third build.
+I developed RoverSetter across three physical iterations:
+
+- **Prototype 1 (Apr–May 2025):** Near the end of sophomore year, I built the first mechanical concept. The mechanisms felt awkward and were not as smooth in operation as I wanted.
+- **Prototype 2 (Summer 2025):** I revised the mechanisms and layout. It operated better, but I was still dissatisfied with the build's strength and readiness for the intended application.
+- **Prototype 3 (Summer 2026):** I further refined the mechanisms and overall construction, combining motorized chassis movement with forward load positioning. This was my most developed iteration, although its small-stone test exposed a longitudinal stability problem.
+
+I no longer have a complete component-by-component record of the first two builds. The clearest test account I retained comes from Prototype 3.
 
 ## Prototype 3 test
 

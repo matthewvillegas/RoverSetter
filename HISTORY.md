@@ -7,9 +7,9 @@ RoverSetter developed from a monument-handling problem I encountered through my 
 | Stage | What I worked on |
 | --- | --- |
 | **Initial concept** | Explored a mechanical approach to transporting and positioning cemetery monuments after a difficult installation. |
-| **Prototype 1** | Built an initial mechanical proof of concept. The arrangement did not meet what I wanted from the machine. |
-| **Prototype 2** | Revised the mechanism and layout. I no longer have a reliable component-by-component record of those changes. |
-| **Prototype 3** | Combined a motorized chassis with a forward hoist/positioning concept. The small-stone test revealed pitching instability. |
+| **Prototype 1 — Apr–May 2025** | Built the initial mechanical proof of concept near the end of sophomore year. Some mechanisms felt awkward and did not move as smoothly as I wanted. |
+| **Prototype 2 — Summer 2025** | Revised the mechanical arrangement to improve how it operated. Movement was better than in Prototype 1, but I still did not consider the build strong or ready enough for its intended use. The exact component changes are not fully documented. |
+| **Prototype 3 — Summer 2026** | Further improved the mechanisms and overall build, integrating a motorized chassis and forward hoist/positioning concept. I considered it the most developed iteration, but the small-stone test revealed pitching instability. |
 | **Follow-up analysis** | Revisited front/rear reactions using moment equilibrium and a Python model of load-position sensitivity. |
 
 ## Prototype 3 test

@@ -12,13 +12,13 @@ I started RoverSetter after a difficult cemetery monument installation took roug
 
 ## Design development
 
-I built three physical prototype iterations, revising the mechanical approach as the project developed.
+I built three physical prototype iterations from spring 2025 through summer 2026, refining the mechanisms and overall construction as I went.
 
 | Iteration | Engineering focus | Result |
 | --- | --- | --- |
-| **Prototype 1** | Initial mechanical handling concept | Established a starting arrangement; the early configuration was unsatisfactory. |
-| **Prototype 2** | Revised mechanical layout | Further changes led to an integrated mobile concept. Detailed records of the early modifications are incomplete. |
-| **Prototype 3** | Motorized chassis and forward hoist/positioning mechanism | Testing revealed a longitudinal stability problem. |
+| **Prototype 1 — Apr–May 2025** | Initial mechanical handling concept | The mechanisms felt awkward and did not operate as smoothly as I wanted. |
+| **Prototype 2 — Summer 2025** | Revised mechanisms and layout | Movement improved, but I was not satisfied with the build's strength or readiness for its intended use. |
+| **Prototype 3 — Summer 2026** | Further mechanical refinements, motorized chassis, and forward hoist/positioning system | The most developed overall build, in my assessment; testing revealed a longitudinal stability problem. |
 
 The physical prototypes were later dismantled or discarded. The images here are CAD drawings, not build photographs. See [Design History](HISTORY.md) for the project timeline and file history.
 
