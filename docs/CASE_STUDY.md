@@ -1,55 +1,69 @@
-# RoverSetter | Engineering Case Study
+# RoverSetter — Engineering Case Study
 
-**Problem → prototype iterations → instability → investigation**
+**Mobile monument handling: three prototypes and a longitudinal stability investigation**
 
-![RoverSetter CAD design](../images/roversetter-full-cad.png)
+![RoverSetter CAD assembly](../images/roversetter-full-cad.png)
 
-*CAD design view (not a photograph of a physical build).*
+*RoverSetter CAD design, current export.*
 
-### Customer problem
+## The problem
 
-In my monument business, a cemetery installation took approximately three to four hours using difficult-to-handle equipment, and a stone was damaged during the process. I began RoverSetter to investigate whether a compact mobile system could make handling and setting monuments more practical. The eventual 2,000 lb handling target was aspirational, not tested or certified.
+A cemetery monument installation through my business took roughly three to four hours, and the stone was damaged during handling. I started RoverSetter to explore a smaller machine for monument transport and positioning, particularly where access and terrain make conventional equipment difficult to use. The long-term design target was 2,000 lb.
 
-### Three development iterations
+## Prototype development
 
-**Prototype 1:** an initial mechanical proof of concept. **Prototype 2:** a revised arrangement after the initial mechanisms proved unsatisfactory. **Prototype 3:** an integrated mobile and positioning concept, including motorized chassis motion and forward hoist support. The exact mechanisms changed between the first two versions are not fully recoverable from surviving records, so I do not claim precise design modifications that I cannot substantiate.
+I built an initial mechanical concept, revised its layout in a second iteration, and integrated motorized chassis movement with forward load positioning in Prototype 3. The first two versions helped me work through the mechanism, but I do not have a complete record of their individual component changes. My clearest retained test account is from the third build.
 
-### What happened during Prototype 3 testing
+## Prototype 3 test
 
-I recall testing with a roughly **70 lb** rectangular stone, approximately **16 in across**, **8 in front-to-back** and **6 in tall**. The stone was suspended beyond the front wheel line on a hard surface, with only the wheels bearing on the ground. Both rear wheels lifted nearly together while stationary, after which the chassis rocked and settled. Pitching became more pronounced immediately as the drive motors began accelerating the chassis forward.
+I tested the machine on hard ground with a stone weighing approximately 70 lb. The stone was roughly 16 in across the chassis, 8 in front-to-back and 6 in high. It was suspended ahead of the front wheel-contact line, and the chassis was supported on its wheels.
+
+Both rear wheels lifted almost together while stationary, and the chassis rocked before settling. When I started the drive motors and the machine accelerated forward, the pitching increased.
 
 ![Prototype 3 CAD view](../images/prototype-3-cad.png)
 
-*The test stone's approximate dimensions are recalled. Its position in this design view must not be treated as a recorded hook location or a measurement from the historical trial.*
+*CAD frame and stone geometry; the exact test overhang was not measured.*
 
-This is a firsthand historical account. Original wheel forces, chassis mass distribution, acceleration history, suspension line, and video were not recovered.
+The test did not include calibrated wheel-load measurements, motion tracking, or a measured machine center of mass. I therefore treated the physical behavior and the subsequent calculations as two separate sets of information.
 
-### Engineering investigation
+## Static analysis
 
-My later static analysis examined an assumption I had overlooked: a stone intended to move forward relative to the frame should be analyzed across its movement range, rather than at one fixed position. Under a simple rigid, level-ground, stationary model, the sum of rear support reactions follows
+The machine was intended to move a suspended monument forward relative to the chassis. I had originally considered stability at a fixed load position; the follow-up investigation considered how the longitudinal reaction changes as the load advances.
+
+Taking moments about the front wheel-contact line for a rigid stationary machine on level ground:
 
 $$
-N_{\mathrm{rear}} = \frac{MgL - mgd}{B}
+N_{\mathrm{rear}}=\frac{MgL-mgd}{B}
 $$
 
-where `M` and `m` are machine and stone masses, `L` the machine restoring arm, `d` the stone's forward overhang, and `B` the front-rear wheel spacing. Keeping other assumptions constant gives `dN_rear/dd = -mg/B`: the calculated rear reaction declines as overhang grows.
+`M` is machine mass, `L` is its center-of-mass arm behind the front wheels, `m` is suspended load mass, `d` is forward overhang, and `B` is front-to-rear wheel-contact spacing.
+
+The sensitivity is:
+
+$$
+\frac{dN_{\mathrm{rear}}}{dd}=-\frac{mg}{B}
+$$
 
 ![Free-body diagram](../images/free-body-diagram.png)
 
-For **hypothetical**, not measured, `M=40 kg`, `L=0.50 m`, `B=1.29 m`, and `m≈31.75 kg`, the model produces:
+For a sample calculation with **assumed** machine mass 40 kg, COM arm 0.50 m, and wheelbase 1.29 m, using approximately 31.75 kg as the test-load equivalent:
 
-| Assumed overhang | Predicted rear force |
+| Forward overhang | Calculated rear reaction |
 | --- | ---: |
 | 0.25 m | +91.7 N |
 | 0.50 m | +31.4 N |
-| 0.75 m | −29.0 N (assumed all-wheel static contact infeasible) |
+| 0.75 m | −29.0 N |
 
-![Theoretical overhang sensitivity](../images/model-overhang-sensitivity.png)
+![Rear reaction from the static model](../images/model-overhang-sensitivity.png)
 
-**The table and graph are theoretical outputs, not experimental records.** A negative signed force signifies that this assumed contact equilibrium is impossible; it is not an actual negative wheel contact force. The static analysis does not by itself explain the increased pitching at motor startup. That observation could involve additional transient or contact effects, but the original cause has not been established.
+*Calculated scenario results. They are not force measurements from Prototype 3.*
 
-### Outcome
+At 0.75 m, the signed solution is negative. That indicates the assumed four-contact static state is no longer possible; it is not an actual negative normal force.
 
-RoverSetter taught me to evaluate the **stability of the complete machine throughout its intended configurations**, rather than examining whether individual mechanisms move correctly. I can reproduce the mathematical sensitivity result and explain its assumptions. I cannot claim a measured historical tipping threshold, validated 2,000 lb capacity, or independent diagnosis of the original motor-startup event.
+## What I learned
 
-**Documentation:** [two-page PDF](RoverSetter_Two_Page_Case_Study.pdf) · [technical PDF](RoverSetter_Engineering_Research.pdf) · [CAD views](RoverSetter_CAD_Views.pdf) · [model code](../analysis/README.md) · [file history](../HISTORY.md).
+A working mechanism does not guarantee a stable machine across its full range of motion. Moving a suspended load forward changes the overall moment balance even if the chassis does not move. The gravity-only model explains that trend, but it does not explain the stronger pitching I observed at motor startup.
+
+The next meaningful step is an independently reviewed, low-risk classroom mechanics experiment comparing measured support reactions with the model's predicted trend. It would test the statics calculation, not the original heavy equipment.
+
+**Files:** [Technical report](RoverSetter_Engineering_Research.pdf) · [CAD drawings](RoverSetter_CAD_Views.pdf) · [Engineering notes](ENGINEERING_NOTES.md) · [Python model](../analysis/README.md)

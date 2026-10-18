@@ -1,20 +1,28 @@
-# Reproducible theoretical stability analysis
+# Longitudinal Stability Model
 
-This folder contains a **stationary, gravity-only, level-ground** longitudinal model. It is not a real-machine load rating or a reconstruction of dynamic motor startup.
+This folder contains the Python calculations used to examine how moving a suspended load forward changes the total rear support reaction of a stationary, rigid machine on level ground.
+
+## Run
+
+From the repository root, using Python 3.11 or later:
 
 ```bash
 python -m unittest discover -s analysis/tests -v
 python analysis/src/roversetter_stability.py
 ```
 
-The script uses Python 3 standard library functions. It outputs `analysis/data/hypothetical_v11_reproduced.csv`, with signed rear reactions for three assumed overhangs. The `analysis/data/blank_classroom_trials.csv` is an intentionally empty log; no supervised experiment is claimed to have occurred.
+The model uses only the Python standard library. Seven unit tests check equilibrium, load-position sensitivity, input validation, and selected reference scenarios. GitHub Actions runs the same commands.
 
-| Assumption | Value | Evidence status |
-| --- | --- | --- |
-| Machine mass | 40 kg | Hypothetical |
-| Machine center-of-mass arm | 0.50 m | Hypothetical |
-| Fore-aft wheel spacing | 1.29 m | Digital design parameter, not as-built contact measurement |
-| Stone mass | ≈31.75 kg | Approximation from recalled 70 lb |
-| Overhangs | 0.25, 0.50, 0.75 m | Hypothetical scenarios |
+## Baseline
 
-The model predicts decreasing rear reaction with increasing suspended-load forward overhang. It **does not demonstrate** the original machine's static equilibrium or motor-startup mechanism.
+| Parameter | Value |
+| --- | ---: |
+| Machine mass | 40 kg (assumed) |
+| Machine center-of-mass arm | 0.50 m (assumed) |
+| Front/rear wheel-contact spacing | 1.29 m (current CAD design value) |
+| Suspended load | ≈31.75 kg (from recalled ~70 lb) |
+| Load overhangs | 0.25, 0.50 and 0.75 m (assumed positions) |
+
+Running the script writes `analysis/data/hypothetical_v11_reproduced.csv`. This file contains calculated forces, not field measurements. `analysis/data/blank_classroom_trials.csv` is a blank template for a possible teacher-supervised tabletop study.
+
+The analysis does not include chassis acceleration or suspended-load dynamics; the motor-startup behavior observed during Prototype 3 testing remains outside the model.

@@ -1,109 +1,96 @@
 # RoverSetter
 
-**Independent mechanical engineering project | Mobile monument handling · CAD · Longitudinal stability**
+**Mobile monument handling | Mechanical design · CAD · Longitudinal stability**
 
-[![RoverSetter Python Tests](https://github.com/matthewvillegas/RoverSetter/actions/workflows/python-tests.yml/badge.svg)](https://github.com/matthewvillegas/RoverSetter/actions/workflows/python-tests.yml)
+[![Python tests](https://github.com/matthewvillegas/RoverSetter/actions/workflows/python-tests.yml/badge.svg)](https://github.com/matthewvillegas/RoverSetter/actions/workflows/python-tests.yml)
 
-RoverSetter began with a problem I encountered while installing cemetery monuments: a difficult installation took approximately **three to four hours**, and a stone was damaged during handling. I began developing a compact, maneuverable mobile system to improve transport and positioning. The original design ambition was to handle monuments weighing up to **2,000 lb**; that capacity **was never demonstrated or certified**.
+I started RoverSetter after a difficult cemetery monument installation took roughly **three to four hours** and damaged a stone. I wanted to develop a compact machine that could move across cemetery grounds and help position monuments more precisely. The long-term design target was **2,000 lb**; the prototypes did not demonstrate that capacity.
 
-![RoverSetter maintained CAD design](images/roversetter-full-cad.png)
+![RoverSetter CAD assembly](images/roversetter-full-cad.png)
 
-*Current export of the RoverSetter CAD design. This is a design view—not a photograph of a finished or load-rated physical machine.*
+*RoverSetter CAD assembly, current design export.*
 
-## Project at a glance
+## Design development
 
-| Stage | Work and evidence |
-| --- | --- |
-| Real-world problem | Difficult monument transport and positioning in a cemetery setting |
-| Physical development | **Three prototype iterations**, as recalled by the designer; the hardware is no longer available |
-| Prototype 3 observation | Approximately **70 lb** suspended stone; near-simultaneous rear-wheel lift at rest; increased pitching during drive startup |
-| Engineering investigation | Idealized static equilibrium, load-overhang sensitivity, numerical calculations and unit tests |
-| Outcome | Identified why greater forward load offset reduces **theoretical** rear support; historical motor-startup cause unresolved |
+I built three physical prototype iterations, revising the mechanical approach as the project developed.
 
-## Three prototype iterations
+| Iteration | Engineering focus | Result |
+| --- | --- | --- |
+| **Prototype 1** | Initial mechanical handling concept | Established a starting arrangement; the early configuration was unsatisfactory. |
+| **Prototype 2** | Revised mechanical layout | Further changes led to an integrated mobile concept. Detailed records of the early modifications are incomplete. |
+| **Prototype 3** | Motorized chassis and forward hoist/positioning mechanism | Testing revealed a longitudinal stability problem. |
 
-1. **Prototype 1 — initial mechanical proof of concept.** Built to explore the handling problem. Contemporary technical details have not been recovered.
-2. **Prototype 2 — mechanical revision.** Revised after the first concept was unsatisfactory. Exact changes between the two builds remain insufficiently documented.
-3. **Prototype 3 — integrated system.** Combined motorized chassis movement with a forward hoist/positioning concept. A smaller-stone test revealed pitching instability.
+The physical prototypes were later dismantled or discarded. The images here are CAD drawings, not build photographs. See [Design History](HISTORY.md) for the project timeline and file history.
 
-These build descriptions reflect firsthand recollection. The physical prototypes are no longer available, and this repository does not claim that CAD renders independently prove their construction. More detail is in [HISTORY.md](HISTORY.md).
+## Prototype 3: stability problem
 
-## Prototype 3: what I observed
+During a test on hard ground, I suspended an approximately **70 lb** rectangular stone beyond the front wheel-contact line. I recall dimensions of about **16 in transverse × 8 in front-to-back × 6 in high**. The chassis was supported by its wheels, without the stabilizers carrying the load.
 
-During a test on a hard surface, an approximately **70 lb** stone, recalled as **16 × 8 × 6 inches**, was suspended beyond the front wheel-support line. With the chassis supported on its wheels, both rear wheels rose nearly together and the machine rocked and settled. Immediately when the drive motors accelerated the chassis forward, pitching became more pronounced.
+At rest, both rear wheels lifted nearly together and the chassis rocked before settling. When the drive motors began accelerating the machine forward, the forward pitching became more pronounced.
 
-![Prototype 3 CAD design view](images/prototype-3-cad.png)
+![Prototype 3 frame and test stone](images/prototype-3-cad.png)
 
-*Prototype 3 CAD design view with the recalled stone dimensions. The image does not document the measured hoist attachment point or stone position during the original test.*
+*CAD frame-and-stone view. The stone dimensions reflect the test account; its pictured position is not a measured test coordinate.*
 
-The original hook position, machine center of mass, load-overhang distance, motor torques, and time-resolved wheel forces were not retained. **The original failure's exact cause has not been established.**
+## Longitudinal stability analysis
 
-## Longitudinal stability investigation
+I revisited the original stability assumption because the positioning mechanism could move a load forward relative to the wheelbase. A single static load position does not describe the full range of configurations.
 
-Taking moments about the **front wheel line** gives a simplified, stationary, level-ground model for the total rear-support reaction:
+For a rigid machine on level ground, taking moments about the front contact line gives:
 
 $$
 N_{\mathrm{rear}}=\frac{MgL-mgd}{B}
 $$
 
-Where `M` is machine mass, `L` is the machine center-of-mass arm behind the front support, `m` is suspended load mass, `d` is forward overhang, and `B` is fore-aft support spacing. With other quantities fixed:
+Here, `M` is machine mass, `L` is the machine center-of-mass distance behind the front support, `m` is the suspended load mass, `d` is the forward load overhang, and `B` is the front-to-rear support spacing. With other quantities fixed:
 
 $$
 \frac{dN_{\mathrm{rear}}}{dd}=-\frac{mg}{B}
 $$
 
-The calculated rear reaction decreases as the load is positioned farther forward. This describes **static model sensitivity**, not the original machine's proven tipping threshold.
+This gives a linear decrease in the predicted rear support reaction as the load moves forward.
 
-| Hypothetical overhang | Predicted signed rear reaction |
+### Numerical study
+
+The Python model uses a **hypothetical 40 kg machine**, a **0.50 m restoring arm**, a **1.29 m wheelbase**, and a load mass of approximately **31.75 kg** based on the test recollection. These parameters are not a measurement of the original machine's complete mass distribution.
+
+| Assumed forward overhang | Calculated rear reaction |
 | --- | ---: |
 | 0.25 m | +91.7 N |
 | 0.50 m | +31.4 N |
-| 0.75 m | −29.0 N — assumed static contact infeasible |
+| 0.75 m | −29.0 N |
 
-**These numbers are theoretical calculations, not measured physical-test data.** The model uses assumed `M = 40 kg`, `L = 0.50 m`, `B = 1.29 m`, and `m ≈ 31.75 kg` based on the recalled ~70 lb stone. Negative signed support indicates that the assumed contact state cannot hold—it is not a physical downward reaction from the ground.
+A negative signed reaction means the assumed all-wheel static equilibrium cannot exist; it does not represent a wheel exerting a downward force on the ground.
 
-![Hypothetical rear support reaction versus overhang](images/model-overhang-sensitivity.png)
+![Rear reaction versus forward overhang](images/model-overhang-sensitivity.png)
 
-The increased forward pitching when the chassis motors started is a **separate unresolved dynamics question**; it is not established by the gravity-only model. See [engineering case study](docs/CASE_STUDY.md) and [limitations](docs/EVIDENCE_AND_LIMITATIONS.md).
+*Static-model predictions, not measured wheel loads.*
 
-## View the engineering work
+The static model explains the effect of forward overhang but does not establish why pitching increased during motor startup. That remains a separate dynamics problem involving unmeasured motion and contact forces.
 
-- **[Two-page engineering case study (PDF)](docs/RoverSetter_Two_Page_Case_Study.pdf)** — short admissions/portfolio version.
-- **[Eight-page research report (PDF)](docs/RoverSetter_Engineering_Research.pdf)** — fuller analysis and caveats.
-- **[CAD design views (PDF)](docs/RoverSetter_CAD_Views.pdf)** — selected design views.
-- **[Case study (Markdown)](docs/CASE_STUDY.md)** — readable directly on GitHub.
-- **[Analysis source, tests, and sample data](analysis/README.md)** — reproducible hypothetical model.
-- **[History and file provenance](HISTORY.md)** — physical development account, maintained exports and evidence boundaries.
+## Technical material
 
-## Reproduce the model
+- [Engineering case study](docs/CASE_STUDY.md) — development, test observations, and findings
+- [Two-page case study (PDF)](docs/RoverSetter_Two_Page_Case_Study.pdf)
+- [Technical report (PDF)](docs/RoverSetter_Engineering_Research.pdf)
+- [CAD views (PDF)](docs/RoverSetter_CAD_Views.pdf)
+- [Engineering notes](docs/ENGINEERING_NOTES.md) — assumptions, test conditions, and open questions
+- [Python analysis](analysis/README.md) — model, scenarios, and tests
+- [Design history](HISTORY.md) — prototype evolution and current CAD files
 
-Requires **Python 3**; the computation and unit tests use only the standard library:
+### Run the analysis
+
+Requires Python 3.11 or later; no external Python packages are required.
 
 ```bash
 python -m unittest discover -s analysis/tests -v
 python analysis/src/roversetter_stability.py
 ```
 
-The model script generates a CSV of **illustrative scenarios**; it does not generate experimental results. GitHub Actions runs these two commands on pushes and pull requests to `main`. A passing workflow confirms computational checks, not physical validation.
+The repository includes **seven unit tests** and a GitHub Actions workflow that runs both commands.
 
-## Repository contents
+## Project status
 
-```text
-RoverSetter/
-├── README.md
-├── HISTORY.md
-├── docs/             Case study, engineering PDFs, evidence limits
-├── images/           CAD views and explanatory statics diagrams
-├── analysis/         Numerical model, tests, hypothetical CSV
-├── .github/workflows/python-tests.yml   Python tests and scenario reproduction
-├── FILE_MANIFEST_SHA256.txt              Snapshot checksums
-└── PUBLISH.md                            Repository maintenance notes
-```
+Three physical prototype iterations were completed. The third revealed a stability issue under a small suspended load. I subsequently developed a reproducible static model to investigate forward load position. The original machine's wheel reactions and startup dynamics were not measured, and a full-scale 2,000 lb system has not been validated.
 
-The detailed CAD/STEP source files and full preservation archive are maintained **separately**, not published here as verified construction or load-rating specifications. Current CAD images are updated exports of existing models according to my design-file history; file export dates do not independently establish first creation dates.
-
-**Safety and technical limits:** This is an educational engineering portfolio, not a lifting-system build guide or certified design. No full-scale machine, physical load rating, material strength, or operating safety is validated by these files.
-
-## Attribution and reuse
-
-Engineering history and physical observations are my firsthand account. The mathematical model, documentation, and digital presentation were revised and maintained over time. No open-source license is granted; please ask before redistributing or reusing design materials.
+The full CAD source and STEP archives are stored separately from this public technical summary. No commercial lifting rating is claimed for the design.

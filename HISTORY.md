@@ -1,36 +1,29 @@
-# RoverSetter — Project history & file provenance
+# Design History
 
-The aim of this log is to distinguish **what was physically done**, **what was modeled**, and **what can be independently verified**. Approximate dates and original-build descriptions below are the designer's recollections, not independently time-stamped construction records.
+RoverSetter developed from a monument-handling problem I encountered through my business. I worked through three physical versions before returning to the stability calculations and documenting the results in this repository.
 
-## Development (approximately 2025–2026, designer's account)
+## Prototype development
 
-| Stage | Firsthand project account | Unavailable evidence / uncertainty |
-| --- | --- | --- |
-| Initial motivation | A difficult monument installation took approximately 3–4 hours and resulted in damage that I paid to replace. | Contemporary installation record not included here. |
-| Prototype 1 | Built an initial mechanical proof of concept. | Original components, measurements, and photographs not recovered. |
-| Prototype 2 | Reworked the mechanical arrangement because the first version was unsatisfactory. | Exact changes and performance comparisons unrecorded. |
-| Prototype 3 | Integrated motorized motion and a forward hoist/positioning approach; tested a smaller suspended stone. | Original motor readings, force readings, test photos, and as-built survey not recovered. |
-| Stability observation | While stationary, both rear wheels rose nearly together; after drive-motor startup, pitching increased. | Event described from memory rather than video or instrumented logs. |
+| Stage | What I worked on |
+| --- | --- |
+| **Initial concept** | Explored a mechanical approach to transporting and positioning cemetery monuments after a difficult installation. |
+| **Prototype 1** | Built an initial mechanical proof of concept. The arrangement did not meet what I wanted from the machine. |
+| **Prototype 2** | Revised the mechanism and layout. I no longer have a reliable component-by-component record of those changes. |
+| **Prototype 3** | Combined a motorized chassis with a forward hoist/positioning concept. The small-stone test revealed pitching instability. |
+| **Follow-up analysis** | Revisited front/rear reactions using moment equilibrium and a Python model of load-position sensitivity. |
 
-## Current CAD file history
+## Prototype 3 test
 
-I maintained my **existing RoverSetter models** and periodically saved and exported updated copies. I deleted the previous folder during file organization. The CAD views in this repository represent my original design as maintained in those exports, according to my account. The files' present creation and export dates therefore do not establish when design work first began.
+The test used an approximately 70 lb stone suspended forward of the front wheels on hard ground. With only the wheels supporting the machine, both rear wheels rose nearly together and the frame rocked and settled. The pitching increased when the chassis motors started accelerating forward.
 
-The current files are **CAD design documents, not photographic records** of Prototype 3. The visually shown stone position is not a recovered physical measurement of hook location, cable alignment, or forward overhang during the historical test.
+I did not retain instrumented measurements of the wheel forces, chassis mass distribution, hook location, or motor-startup motion. The exact cause of the startup response remains open.
 
-Older source materials and previous drafts are preserved privately wherever available. This repository intentionally selects public-facing design images rather than publishing a full fabrication package. Preserving earlier drafts also preserves the context of documentation revisions; it is not appropriate to rewrite their timestamps to imply earlier creation.
+## CAD files
 
-## Later analysis (2026)
+I continued working with the existing RoverSetter models, saving and exporting updated versions as I reorganized the project. I deleted an older project folder during that process. The available CAD drawings show the design as maintained in the current files; their export dates are not the dates of the first physical builds.
 
-A static equilibrium investigation examined the effect of the load's forward location on idealized front/rear wheel reactions. Python software reproduces **assumed scenarios** for hypothetical machine parameters. These are mathematical results, not full-scale field measurements.
+The current CAD is design documentation. It does not establish the exact stone position or hook geometry used in the physical test. I keep the larger original-file archive separately from this public repository.
 
-The investigation does **not** prove the original motor-startup mechanism, the original actual tipping boundary, tested 2,000 lb performance, or independent third-party verification. The project's value lies in physical iteration, documented reasoning, and recognition of these limits.
+## Engineering outcome
 
-## Evidence categories
-
-- **Firsthand history:** designer-reported build sequence and physical observations.
-- **Digital artifacts:** current CAD exports representing the engineering design; software code and reports.
-- **Reproducible theory:** idealized equations, model outputs, and numerical tests.
-- **Still missing:** contemporary physical-test photos, as-built mass properties, calibrated wheel-force readings, exact suspension coordinates, independent engineering review.
-
-The goal is accuracy, not an artificial appearance of stronger documentation than actually survives.
+The analysis clarified a problem with evaluating stability at only one load position. In a gravity-only static model, advancing a suspended load beyond the front support decreases the calculated rear reaction. The separate motor-startup behavior needs dynamic measurements to investigate further.
